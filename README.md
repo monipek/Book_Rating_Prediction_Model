@@ -3,7 +3,7 @@
 ## Introduction
 Every time I finish a book, I instinctively rate it on Goodreads. It has become a ritual. This habit sparked the idea to build a machine learning model that predicts a book’s rating based solely on the text of its review. 
 
-In this project, I used R to develop the model and Deepseek to help with code writing.
+I used R to develop the model and Deepseek to help with code writing.
 
 ## Dataset and Methodology
 This project started with a Kaggle dataset of 250,000 Goodreads book reviews that can be found [here](https://www.kaggle.com/competitions/goodreads-books-reviews-290312/overview). To make the task more manageable and fairer, I created a balanced subset of 50,000 reviews, 10,000 for each rating from 1 to 5 stars. This helped ensure all rating categories were equally represented and it also significantly sped up processing time. The dataset included full review texts and their corresponding star ratings, giving me a rich base for text analysis.
@@ -30,6 +30,12 @@ Figure 2
 </div>
 
 
+The model reached an accuracy of 46.1% on the test set as seen in Figure 1, more than double the 20% you'd expect from random guessing. It was especially good at predicting the extreme ratings, 1 and 5 stars. For example, as seen in the Confusion Matrix in Figure 2, it correctly identified 1,223 of the 1-star reviews and 1,243 of the 5-star ones. However, it struggled more with the middle ratings (2 to 4 stars), often confusing them with their neighbouring categories. This reflects how subjective these ratings can be. What one person sees as "just okay" (3 stars), another might rate as "good" (4 stars).
+ 
+The model clearly picked up on sentiment: negative words like “pretentious” and “dull” often predicted 1-star reviews, while emotional phrases like “utterly broke me” or “the literary love of my life” were strong indicators of 5-star ratings. Still, the model found it harder to deal with reviews that contained mixed opinions, where the overall tone wasn’t so obvious.
+
+## Further Testing with "A Little Life"
+
 | "A Little Life" Review  | Predicted Rating | Actual Rating |
 |----------------|------------------|---------------|
 | "Brace yourself for the most melodramatic, pretentious, dull, dumb, overwritten, repetitive, laughable, cringe-inducing, self-indulgent, unbelievable, stereotypical, voyeuristic, contrived piece of fiction." | ★1 | ★1 |
@@ -39,13 +45,7 @@ Figure 2
 | "Well, I finished. Finally.This book came highly recommended... I found many aspects of it compelling, but I also was haunted by a feeling of shallowness... this novel demonstrates to me what not to do if I ever endeavor to write one of my own..." | ★5 | ★2 |
 | "Im not sure if it's just me missing some details, but, what really made them become friends and stay as friends? And why are they all so super successful in their fields?" | ★1 | ★3 |
 
-The model reached an accuracy of 46.1% on the test set, more than double the 20% you'd expect from random guessing. It was especially good at predicting the extreme ratings, 1 and 5 stars. For example, as seen in the Confusion Matrix in Figure 2, it correctly identified 1,223 of the 1-star reviews and 1,243 of the 5-star ones. However, it struggled more with the middle ratings (2 to 4 stars), often confusing them with their neighbouring categories. This reflects how subjective these ratings can be. What one person sees as "just okay" (3 stars), another might rate as "good" (4 stars).
- 
-The model clearly picked up on sentiment: negative words like “pretentious” and “dull” often predicted 1-star reviews, while emotional phrases like “utterly broke me” or “the literary love of my life” were strong indicators of 5-star ratings. Still, the model found it harder to deal with reviews that contained mixed opinions, where the overall tone wasn’t so clear-cut.
-
-## Further Testing with "A Little Life"
-
-To test the model beyond the dataset, I ran it on a very small sample of 6 reviews of one of my favourite books, “A Little Life”. It successfully predicted the most extreme reviews, spot-on for the 1-star and 5-star ratings, thanks to their strong emotional language. But the model struggled with more balanced or mixed reviews. One review, rated 2 stars by the user, was predicted as a 5-star because it praised certain aspects while also being critical. Another 3-star review, written with a fairly negative tone, was misclassified as 1-star. These examples show how tricky it can be to assign a single rating to complex reviews, even for human readers. It made me think it would be interesting to compare how people versus models interpret review sentiment and decide on ratings.
+To test the model beyond the dataset, I ran it on a very small sample of 6 reviews of one of my favourite books, “A Little Life”. It successfully predicted the most extreme reviews, thanks to their strong emotional language. But the model struggled with more balanced or mixed reviews. One review, rated 2 stars by the user, was predicted as a 5-star because it praised certain aspects while also being critical. Another 3-star review, written with a fairly negative tone, was misclassified as 1-star. These examples show how tricky it can be to assign a single rating to complex reviews, even for human readers. It made me think it would be interesting to compare how people versus models interpret review sentiment and decide on ratings.
 
 ## Future Improvements
 
@@ -57,4 +57,8 @@ This project gave me a great look into both machine learning and how people rate
 
 Ultimately, this project reminded me that book ratings are deeply subjective. Even readers can’t always agree, especially with emotionally complex books like “A Little Life”. Some reviews are so mixed that assigning a single star rating feels almost arbitrary. While machine learning can help us understand trends and make predictions, it also highlights just how personal reading experiences are, and that’s what makes them so interesting.
 
+---
 
+**Data sources**: Kaggle   
+**Tools used**: R, DeepSeek    
+**Code Repository**: https://github.com/monipek/Book_Rating_Prediction_Model
